@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    format-check:
+      run: php /c/Users/USER/.config/herd-lite/bin/composer.phar format
+    lint:
+      run: php /c/Users/USER/.config/herd-lite/bin/composer.phar lint
+    build:
+      run: npm run build
