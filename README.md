@@ -82,6 +82,30 @@ Examples:
 
 ---
 
+## Local Docker (Auth)
+
+This repository includes a Docker Compose setup to run the Auth API locally with the services required by authentication:
+
+- app (Laravel)
+- postgres
+- redis (recommended)
+- mailhog (for inspecting sent emails)
+
+Quick start (Windows PowerShell):
+
+- Build and start containers: `./scripts\docker-up.ps1 -Build`
+- Start without rebuild: `./scripts\docker-up.ps1`
+- Tear down: `./scripts\docker-down.ps1`
+
+Notes:
+
+- Example env for Docker: `.env.docker.example` (copy to `.env` if needed)
+- App will be available at: `http://localhost:8000`
+- MailHog UI: `http://localhost:8025`
+- DB: `postgres:5432` (user: `postgres`, password: `secret`, db: `laravel_api`)
+
+---
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
