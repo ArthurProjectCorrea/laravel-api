@@ -54,6 +54,34 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
+## Authentication (Auth Central)
+
+This repository exposes a central authentication API implementing the plan in `docs/dev/plan_1.md`.
+
+Examples:
+
+- Login
+
+  POST /api/auth/login
+  Body: { "email": "user@funac.mt.gov.br", "password": "secret", "app_name": "erp-web" }
+
+- Logout
+
+  POST /api/auth/logout
+  Header: Authorization: Bearer <token>
+
+- Request password reset
+
+  POST /api/auth/password/forgot
+  Body: { "email": "user@funac.mt.gov.br", "frontend_url": "https://erp.example.local/reset" }
+
+- Reset password
+
+  POST /api/auth/password/reset
+  Body: { "email": "user@funac.mt.gov.br", "token": "...", "password": "newpass", "password_confirmation": "newpass" }
+
+---
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
