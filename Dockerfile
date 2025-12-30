@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     procps \
-    netcat \
+    netcat-openbsd \
  && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
@@ -21,13 +21,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
 
-# Copy composer files first to leverage Docker cache
-COPY composer.json composer.lock ./
-
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
-
-# Copy application
+# Copy application (needs artisan available for composer scripts)
 COPY . ./
+
+# Install composer dependencies
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # Ensure storage and bootstrap/cache are writable
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
