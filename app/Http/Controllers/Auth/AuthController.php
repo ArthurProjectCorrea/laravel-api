@@ -21,7 +21,8 @@ class AuthController extends Controller
         $user = User::where('email', $data['email'])->first();
 
         if (! $user || ! Hash::check($data['password'], $user->password)) {
-            event(new Failed(null, null));
+            // dispatch Failed event with guard, user (may be null) and attempted credentials
+            event(new Failed('sanctum', $user, ['email' => $data['email']]));
 
             return response()->json([
                 'message' => 'Credenciais inválidas.',

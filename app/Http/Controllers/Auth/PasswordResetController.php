@@ -40,6 +40,9 @@ class PasswordResetController extends Controller
             function (User $user, string $password): void {
                 $user->password = Hash::make($password);
                 $user->save();
+
+                // ensure the PasswordReset event is fired for auditing
+                event(new \Illuminate\Auth\Events\PasswordReset($user));
             }
         );
 
